@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const path = require("path");
 
 /*
  |--------------------------------------------------------------------------
@@ -16,6 +17,7 @@ mix
         browser: "Firefox Developer Edition",
         proxy: process.env.APP_URL
     })
+    .alias({'@' : path.join(__dirname, 'resources/js')})
     .vue()
     .js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
