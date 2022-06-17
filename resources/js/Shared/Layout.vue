@@ -19,7 +19,14 @@
             </button>
           </template>
           <template v-slot:Dropdown>
-            <div class="py-2 px-4 text-black w-48">Action Item One</div>
+            <div class="py-2 px-4 text-black w-48">
+                <Link href="/users" as="button">
+                    Users
+                </Link>
+                <Link href="/logout" method="post" as="button">
+                    Logout
+                </Link>
+            </div>
           </template>
         </Dropdown>
 			</div>
@@ -33,11 +40,13 @@
 <script>
 import Icon from '@/Shared/Icon'
 import Dropdown from '@nathanbate/vue-dropdown-menu'
+import { Link } from '@inertiajs/inertia-vue3';
 
 export default {
   components: {
     Icon,
-    Dropdown
+    Dropdown,
+    Link,
   }
 }
 </script>

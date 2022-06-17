@@ -2,18 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+
+use App\Models\User;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Validation\Rule;
+use Inertia\Inertia;
 
 class UsersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        return Inertia::render('Users', [
+            'users' => User::all()->except("password")
+        ]);
     }
 
     /**
@@ -23,18 +30,24 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('UserCreate');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        Request::validate([
+            'name' => ['required', 'max:50'],
+            'email' => ['required', 'max:50', 'email', Rule::unique('users')],
+            'password' => ['nullable'],
+        ]);
+
+        $user = User::create([
+            'name' => Request::get('name'),
+            'email' => Request::get('email'),
+            'password' => Hash::make(Request::get('password')),
+        ]);
+
+        return Redirect::route('users')->with('success', 'User created.');
     }
 
     /**
@@ -54,9 +67,15 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return Inertia::render('UserEdit', [
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+            ],
+        ]);
     }
 
     /**

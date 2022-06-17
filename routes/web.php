@@ -1,7 +1,11 @@
 <?php
 
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BookmarksController;
+use Inertia\Inertia;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +18,10 @@ use App\Http\Controllers\BookmarksController;
 |
 */
 
+
 Route::get('/', function () {
-    return view('welcome');
-});
+    return Inertia::render('Dashboard');
+})->middleware("auth")->name("dashboard");
 
-Route::get('bookmarks', [BookmarksController::class, 'index'])
-    ->name('bookmarks');
 
+require __DIR__.'/auth.php';

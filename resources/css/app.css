@@ -1,9 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-svg {
-    width:100% !important;
-    height:100% !important;
-    fill: currentColor;
-}
