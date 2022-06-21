@@ -36,6 +36,7 @@ export default {
                 showList: true,
                 itemsPerPage: 10,
                 rowLinkable: true,
+                inertiaLinks: true,
                 actionButton: {
                     label: 'New User',
                     link: route('users.create')
