@@ -19,7 +19,9 @@ class UsersController extends Controller
     public function index()
     {
         return Inertia::render('Users', [
-            'users' => User::all()->except("password")
+            'users' => User::all()->except("password")->reject(function ($user) {
+                return $user->role == 'super';
+            })
         ]);
     }
 

@@ -34,9 +34,21 @@ export default {
                 },
                 columns: [
                     {
-                        label: "Name",
+                        label: "First Name",
                         link: true,
-                        key: "name",
+                        key: "first_name",
+                        search: true
+                    },
+                    {
+                        label: "Last Name",
+                        link: true,
+                        key: "last_name",
+                        search: true
+                    },
+                    {
+                        label: "Email",
+                        link: true,
+                        key: "email",
                         search: true
                     },
                 ]

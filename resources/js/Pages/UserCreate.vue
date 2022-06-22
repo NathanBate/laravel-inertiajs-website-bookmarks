@@ -1,4 +1,8 @@
 <template>
+    <!--
+    Good Form Design
+    https://medium.com/nextux/form-design-best-practices-9525c321d759
+    -->
     <div>
         <Head title="Create User" />
         <h1 class="mb-8 text-3xl font-bold">
@@ -7,10 +11,9 @@
         </h1>
         <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
             <form @submit.prevent="store">
-                <div class="flex flex-wrap -mb-8 -mr-6 p-8">
-                    <text-input v-model="form.name" :error="form.errors.name" class="pb-8 pr-6 w-full lg:w-1/2" label="Name" />
-                    <text-input v-model="form.email" :error="form.errors.email" class="pb-8 pr-6 w-full lg:w-1/2" label="Email" />
-                    <text-input v-model="form.password" :error="form.errors.password" class="pb-8 pr-6 w-full lg:w-1/2" type="password" autocomplete="new-password" label="Password" />
+                <div class="flex flex-col">
+                    <label for="first_name">First Name</label>
+                    <input id="first_name" v-model="form.first_name" />
                 </div>
                 <div class="flex items-center justify-end px-8 py-4 bg-gray-50 border-t border-gray-100">
                     <loading-button :loading="form.processing" class="btn-indigo" type="submit">Create User</loading-button>
@@ -23,9 +26,6 @@
 <script>
 import { Head, Link } from '@inertiajs/inertia-vue3'
 import Layout from '@/Layouts/Authenticated.vue';
-import FileInput from '@/Shared/FileInput'
-import TextInput from '@/Shared/TextInput'
-import SelectInput from '@/Shared/SelectInput'
 import LoadingButton from '@/Shared/LoadingButton'
 
 export default {
@@ -33,19 +33,16 @@ export default {
         Head,
         Link,
         LoadingButton,
-        SelectInput,
-        TextInput,
     },
     layout: Layout,
     data() {
         return {
-            form: this.$inertia.form({
-                name: '',
+            form: {
+                first_name: '',
+                last_name: '',
                 email: '',
                 password: '',
-                owner: false,
-                photo: null,
-            }),
+            },
         }
     },
     methods: {
