@@ -47,7 +47,7 @@ class UsersController extends Controller
             'password' => Hash::make(Request::get('password')),
         ]);
 
-        return Redirect::route('users')->with('success', 'User created.');
+        return Redirect::route('users.list')->with('success', 'User created.');
     }
 
     /**

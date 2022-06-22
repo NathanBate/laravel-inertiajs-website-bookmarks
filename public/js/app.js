@@ -20795,32 +20795,13 @@ __webpack_require__.r(__webpack_exports__);
           search: true
         }]
       },
-      vueListData: [{
-        name: 'Nathan Bate',
-        link: '#'
-      }, {
-        name: 'Katrina Bate',
-        link: '#'
-      }, {
-        name: 'Kaylee Bate',
-        link: '#'
-      }, {
-        name: 'Jonathan Bate',
-        link: '#'
-      }, {
-        name: 'Karis Bate',
-        link: '#'
-      }, {
-        name: 'James Bate',
-        link: '#'
-      }, {
-        name: 'Joel Bate',
-        link: '#'
-      }, {
-        name: 'Java Bate',
-        link: '#'
-      }]
+      vueListData: []
     };
+  },
+  created: function created() {
+    if (this.users !== undefined) {
+      this.vueListData = this.users;
+    }
   }
 });
 
@@ -22520,16 +22501,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Users");
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
-/* HOISTED */
-);
-
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Create User ");
-
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Head = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Head");
-
-  var _component_Link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Link");
 
   var _component_List = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("List");
 
@@ -22542,16 +22515,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Head, {
         title: "Users"
-      }), _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
-        "class": "btn-indigo",
-        href: "/users/create"
-      }, {
-        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [_hoisted_3];
-        }),
-        _: 1
-        /* STABLE */
-
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_List, {
         "config-prop": $data.vueListConfig,
         "data-prop": $data.vueListData
@@ -23314,7 +23277,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "div.nbvl-craft-theme {\n\n}\n\ndiv.nbvl-craft-theme > div {\n    margin: 16px 0px;\n}\n\ndiv.nbvl-craft-theme > div > div.nbvl-search-wrapper::before {\n    position: absolute;\n    left: 8px;\n    top: 8px;\n    content: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='20' width='20' viewBox='0 0 48 48' style='fill:gray;'%3E%3Cpath d='M39.8 42.3 26.55 29.1Q25.1 30.35 23.1 31.05Q21.1 31.75 18.85 31.75Q13.35 31.75 9.525 27.95Q5.7 24.15 5.7 18.75Q5.7 13.35 9.525 9.55Q13.35 5.75 18.75 5.75Q24.15 5.75 27.95 9.55Q31.75 13.35 31.75 18.75Q31.75 20.9 31.05 22.9Q30.35 24.9 29 26.65L42.3 39.8ZM18.8 28.35Q22.75 28.35 25.525 25.525Q28.3 22.7 28.3 18.75Q28.3 14.8 25.525 11.975Q22.75 9.15 18.8 9.15Q14.75 9.15 11.95 11.975Q9.15 14.8 9.15 18.75Q9.15 22.7 11.95 25.525Q14.75 28.35 18.8 28.35Z'/%3E%3C/svg%3E\");\n}\n\ndiv.nbvl-craft-theme > div > div > input.nbvl-search-box {\n    border-radius: 0.25rem;\n    margin-right: 0.75rem;\n    background-clip: border-box;\n    padding: 6px 12px;\n    padding-left:30px;\n    border: 1px solid rgba(96, 125, 159, 0.25);\n    font-size: 14px;\n    line-height: 20px;\n    box-sizing: border-box;\n    width: 100%;\n    background-color: #fbfcfe;\n    color: #394b60;\n}\n\ndiv.nbvl-craft-theme > div > div > div.nbvl-clear-search {\n    position: absolute;\n    top: 8px;\n    right:15px;\n}\n\ndiv.nbvl-craft-theme div div.nbvl-clear-search > a {\n    cursor: pointer;\n}\n\ndiv.nbvl-craft-theme div a {\n    text-decoration: none;\n}\n\ndiv.nbvl-craft-theme div a .nbvl-action-button {\n    color:white;\n    border-radius: .25rem;\n    text-decoration: none;\n    font-family: sans-serif;\n    font-weight: lighter;\n    cursor: pointer;\n    padding: .5rem 1rem .5rem 1rem;\n    background-color: #E12D39;\n}\n\ndiv.nbvl-craft-theme div a .nbvl-action-button:hover {\n    background-color: #b5222c;\n}\n\ndiv.nbvl-craft-theme > table.nbvl-table {\n    width:100%;\n    margin:0;\n    border:0;\n    padding:0;\n    border-spacing: 0;\n}\n\n\ndiv.nbvl-craft-theme table.nbvl-table thead tr th:first-child {\n    border-top-left-radius: .25rem;\n}\n\ndiv.nbvl-craft-theme table.nbvl-table thead tr th:last-child {\n    border-top-right-radius: .25rem;\n}\n\ndiv.nbvl-craft-theme table.nbvl-table thead tr th {\n    background-color: #f3f7fc;\n    color: #3f4d5a;\n    font-weight: bold;\n    font-family: sans-serif;\n    text-align: left;\n    padding: 14px 12px;\n    border:0;\n    margin:0;\n}\n\ndiv.nbvl-craft-theme > table.nbvl-table tbody {\n\n}\n\ndiv.nbvl-craft-theme > table.nbvl-table tbody tr {\n    border-top: 1px white solid;\n    background-color: #fff;\n}\n\ndiv.nbvl-craft-theme > table.nbvl-table tbody tr td {\n    word-wrap: break-word;\n    text-align: left;\n    vertical-align: middle;\n    font-family: sans-serif;\n}\n\ndiv.nbvl-craft-theme > table.nbvl-table tbody tr td a div,\ndiv.nbvl-craft-theme > table.nbvl-table tbody tr td a,\ndiv.nbvl-craft-theme > table.nbvl-table tbody tr td,\ndiv.nbvl-craft-theme > table.nbvl-table tbody tr,\ndiv.nbvl-craft-theme > table.nbvl-table tbody,\ndiv.nbvl-craft-theme > table.nbvl-table\n{\n    word-break: break-all;\n}\n\ndiv.nbvl-craft-theme > table.nbvl-table tbody tr:hover {\n    background-color: #f3f7fc;\n}\n\ndiv.nbvl-craft-theme > table.nbvl-table tbody tr td .nbvl-table-cell-link {\n    text-decoration: none;\n}\n\ndiv.nbvl-craft-theme table.nbvl-table tbody tr.nbvl-table-footer {\n}\n\ndiv.nbvl-craft-theme table.nbvl-table tbody tr.nbvl-table-footer {\n    background: transparent;\n}\n\ndiv.nbvl-craft-theme table.nbvl-table tbody tr.nbvl-table-footer td {\n    background-color: #f3f7fc;\n    color: #3f4d5a;\n    font-family: sans-serif;\n    text-align: left;\n    padding: 14px 12px;\n    border:0;\n    margin:0;\n    border-bottom-left-radius: .25rem;\n    border-bottom-right-radius: .25rem;\n}\n\ndiv.nbvl-craft-theme table.nbvl-table tbody tr.nbvl-table-footer td div {\n    display: flex;\n    justify-content: center;\n}\n\ndiv.nbvl-craft-theme table.nbvl-table tbody tr.nbvl-table-footer td div a,\ndiv.nbvl-craft-theme table.nbvl-table tbody tr.nbvl-table-footer td div span {\n    padding: 4px 8px;\n    font-size:8pt;\n}\n\ndiv.nbvl-craft-theme table.nbvl-table tbody tr.nbvl-table-footer td div a {\n    cursor: pointer;\n    background-color: #d8dde3;\n    padding-top:5px;\n    margin-left: 4px;\n    margin-right: 4px;\n}\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "div.nbvl-craft-theme {\n\n}\n\ndiv.nbvl-craft-theme > div {\n    margin: 16px 0px;\n}\n\ndiv.nbvl-craft-theme > div > div.nbvl-search-wrapper::before {\n    position: absolute;\n    left: 8px;\n    top: 8px;\n    content: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='20' width='20' viewBox='0 0 48 48' style='fill:gray;'%3E%3Cpath d='M39.8 42.3 26.55 29.1Q25.1 30.35 23.1 31.05Q21.1 31.75 18.85 31.75Q13.35 31.75 9.525 27.95Q5.7 24.15 5.7 18.75Q5.7 13.35 9.525 9.55Q13.35 5.75 18.75 5.75Q24.15 5.75 27.95 9.55Q31.75 13.35 31.75 18.75Q31.75 20.9 31.05 22.9Q30.35 24.9 29 26.65L42.3 39.8ZM18.8 28.35Q22.75 28.35 25.525 25.525Q28.3 22.7 28.3 18.75Q28.3 14.8 25.525 11.975Q22.75 9.15 18.8 9.15Q14.75 9.15 11.95 11.975Q9.15 14.8 9.15 18.75Q9.15 22.7 11.95 25.525Q14.75 28.35 18.8 28.35Z'/%3E%3C/svg%3E\");\n}\n\n/* Search Box Input */\ndiv.nbvl-craft-theme > div > div > input.nbvl-search-box {\n    border-radius: 0.25rem;\n    margin-right: 0.75rem;\n    background-clip: border-box;\n    padding: 6px 12px;\n    padding-left:30px;\n    border: 1px solid rgba(96, 125, 159, 0.25);\n    font-size: 14px;\n    line-height: 20px;\n    box-sizing: border-box;\n    width: 100%;\n    height:34px;\n    background-color: #fbfcfe;\n    color: #394b60;\n}\n\ndiv.nbvl-craft-theme > div > div > div.nbvl-clear-search {\n    position: absolute;\n    top: 8px;\n    right:15px;\n}\n\ndiv.nbvl-craft-theme div div.nbvl-clear-search > a {\n    cursor: pointer;\n}\n\ndiv.nbvl-craft-theme div a {\n    text-decoration: none;\n}\n\n/* Action Button */\ndiv.nbvl-craft-theme div a .nbvl-action-button {\n    display: flex;\n    align-items: center;\n    height: 34px;\n    padding-right: 1rem;\n    padding-left: 1rem;\n    color:white;\n    border-radius: .25rem;\n    text-decoration: none;\n    font-family: sans-serif;\n    font-weight: lighter;\n    font-size: 14px;\n    cursor: pointer;\n    background-color: #E12D39;\n    white-space: nowrap;\n}\n\ndiv.nbvl-craft-theme div a .nbvl-action-button:hover {\n    background-color: #b5222c;\n}\n\ndiv.nbvl-craft-theme > table.nbvl-table {\n    width:100%;\n    margin:0;\n    border:0;\n    padding:0;\n    border-spacing: 0;\n}\n\n\ndiv.nbvl-craft-theme table.nbvl-table thead tr th:first-child {\n    border-top-left-radius: .25rem;\n}\n\ndiv.nbvl-craft-theme table.nbvl-table thead tr th:last-child {\n    border-top-right-radius: .25rem;\n}\n\ndiv.nbvl-craft-theme table.nbvl-table thead tr th {\n    background-color: #f3f7fc;\n    color: #3f4d5a;\n    font-weight: bold;\n    font-family: sans-serif;\n    text-align: left;\n    padding: 14px 12px;\n    border:0;\n    margin:0;\n}\n\ndiv.nbvl-craft-theme > table.nbvl-table tbody {\n\n}\n\ndiv.nbvl-craft-theme > table.nbvl-table tbody tr {\n    border-top: 1px white solid;\n    background-color: #fff;\n}\n\ndiv.nbvl-craft-theme > table.nbvl-table tbody tr td {\n    word-wrap: break-word;\n    text-align: left;\n    vertical-align: middle;\n    font-family: sans-serif;\n}\n\ndiv.nbvl-craft-theme > table.nbvl-table tbody tr td a div,\ndiv.nbvl-craft-theme > table.nbvl-table tbody tr td a,\ndiv.nbvl-craft-theme > table.nbvl-table tbody tr td,\ndiv.nbvl-craft-theme > table.nbvl-table tbody tr,\ndiv.nbvl-craft-theme > table.nbvl-table tbody,\ndiv.nbvl-craft-theme > table.nbvl-table\n{\n    word-break: break-all;\n}\n\ndiv.nbvl-craft-theme > table.nbvl-table tbody tr:hover {\n    background-color: #f3f7fc;\n}\n\ndiv.nbvl-craft-theme > table.nbvl-table tbody tr td .nbvl-table-cell-link {\n    text-decoration: none;\n}\n\ndiv.nbvl-craft-theme table.nbvl-table tbody tr.nbvl-table-footer {\n}\n\ndiv.nbvl-craft-theme table.nbvl-table tbody tr.nbvl-table-footer {\n    background: transparent;\n}\n\ndiv.nbvl-craft-theme table.nbvl-table tbody tr.nbvl-table-footer td {\n    background-color: #f3f7fc;\n    color: #3f4d5a;\n    font-family: sans-serif;\n    text-align: left;\n    padding: 14px 12px;\n    border:0;\n    margin:0;\n    border-bottom-left-radius: .25rem;\n    border-bottom-right-radius: .25rem;\n}\n\ndiv.nbvl-craft-theme table.nbvl-table tbody tr.nbvl-table-footer td div {\n    display: flex;\n    justify-content: center;\n}\n\ndiv.nbvl-craft-theme table.nbvl-table tbody tr.nbvl-table-footer td div a,\ndiv.nbvl-craft-theme table.nbvl-table tbody tr.nbvl-table-footer td div span {\n    padding: 4px 8px;\n    font-size:8pt;\n}\n\ndiv.nbvl-craft-theme table.nbvl-table tbody tr.nbvl-table-footer td div a {\n    cursor: pointer;\n    background-color: #d8dde3;\n    padding-top:5px;\n    margin-left: 4px;\n    margin-right: 4px;\n}\n\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -50202,27 +50165,31 @@ const _hoisted_4 = {
 }
 const _hoisted_5 = {
   key: 0,
-  style: {"font-size":"8pt","padding-top":"6px","padding-right":"4px","color":"gray"}
+  style: {"display":"flex","align-items":"center","font-size":"8pt","padding-right":"4px","color":"gray"}
 }
-const _hoisted_6 = {
+const _hoisted_6 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", { style: {"position":"relative"} }, "ESC", -1 /* HOISTED */))
+const _hoisted_7 = [
+  _hoisted_6
+]
+const _hoisted_8 = {
   xmlns: "http://www.w3.org/2000/svg",
   height: "20",
   width: "20",
   viewBox: "0 0 48 48",
   style: {"fill":"gray"}
 }
-const _hoisted_7 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", { d: "M12.45 37.95 10.05 35.55 21.6 24 10.05 12.45 12.45 10.05 24 21.6 35.55 10.05 37.95 12.45 26.4 24 37.95 35.55 35.55 37.95 24 26.4Z" }, null, -1 /* HOISTED */))
-const _hoisted_8 = [
-  _hoisted_7
+const _hoisted_9 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", { d: "M12.45 37.95 10.05 35.55 21.6 24 10.05 12.45 12.45 10.05 24 21.6 35.55 10.05 37.95 12.45 26.4 24 37.95 35.55 35.55 37.95 24 26.4Z" }, null, -1 /* HOISTED */))
+const _hoisted_10 = [
+  _hoisted_9
 ]
-const _hoisted_9 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", { class: "nbvl-search-bar-spacer" }, null, -1 /* HOISTED */))
-const _hoisted_10 = { class: "nbvl-action-button" }
-const _hoisted_11 = { class: "nbvl-table" }
-const _hoisted_12 = { style: {"padding":"14px","display":"inline-block","width":"100%","color":"black"} }
-const _hoisted_13 = { key: 1 }
-const _hoisted_14 = { class: "nbvl-table-footer" }
-const _hoisted_15 = ["colspan"]
-const _hoisted_16 = { class: "nathanbate-list-pagination-buttons" }
+const _hoisted_11 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", { class: "nbvl-search-bar-spacer" }, null, -1 /* HOISTED */))
+const _hoisted_12 = { class: "nbvl-action-button" }
+const _hoisted_13 = { class: "nbvl-table" }
+const _hoisted_14 = { style: {"padding":"14px","display":"inline-block","width":"100%","color":"black"} }
+const _hoisted_15 = { key: 1 }
+const _hoisted_16 = { class: "nbvl-table-footer" }
+const _hoisted_17 = ["colspan"]
+const _hoisted_18 = { class: "nathanbate-list-pagination-buttons" }
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_Link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Link")
@@ -50234,6 +50201,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, [
       (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" search box, clear search, and action button "),
       (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" search box "),
         (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [
           (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
             id: "nbSearchBox",
@@ -50246,19 +50214,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           ]),
           (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [
             ($data.searchPhrase.length > 0 && $data.isMobile === false)
-              ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, "ESC"))
+              ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, _hoisted_7))
               : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true),
             ($data.searchPhrase.length > 0)
               ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
                   key: 1,
                   onClick: _cache[1] || (_cache[1] = (...args) => ($options.clearSearch && $options.clearSearch(...args)))
                 }, [
-                  ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_6, _hoisted_8))
+                  ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_8, _hoisted_10))
                 ]))
               : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)
           ])
         ]),
-        _hoisted_9,
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" spacer "),
+        _hoisted_11,
         (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" action button "),
         ($data.config.hasOwnProperty('actionButton'))
           ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Link, {
@@ -50267,14 +50236,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
               "inertia-links": $data.inertiaLinks
             }, {
               default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(() => [
-                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.config.actionButton.label), 1 /* TEXT */)
+                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [
+                  (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.config.actionButton.label), 1 /* TEXT */)
+                ])
               ]),
               _: 1 /* STABLE */
             }, 8 /* PROPS */, ["href", "inertia-links"]))
           : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)
       ]),
+      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" END: search box, clear search, and action button "),
       (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" table "),
-      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_11, [
+      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_13, [
         (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Table Heading "),
         (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [
           (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [
@@ -50307,21 +50279,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                         "inertia-links": $data.inertiaLinks
                       }, {
                         default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(() => [
-                          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item[ $data.config.columns[columnIndex].key ]), 1 /* TEXT */)
+                          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item[ $data.config.columns[columnIndex].key ]), 1 /* TEXT */)
                         ]),
                         _: 2 /* DYNAMIC */
                       }, 1032 /* PROPS, DYNAMIC_SLOTS */, ["href", "target", "inertia-links"]))
-                    : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item[ $data.config.columns[columnIndex].key ]), 1 /* TEXT */))
+                    : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item[ $data.config.columns[columnIndex].key ]), 1 /* TEXT */))
                 ]))
               }), 128 /* KEYED_FRAGMENT */))
             ]))
           }), 128 /* KEYED_FRAGMENT */)),
           (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Table Footer "),
-          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", _hoisted_14, [
+          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", _hoisted_16, [
             (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
               colspan: $data.config.columns.length
             }, [
-              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [
                 (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
                   onClick: _cache[2] || (_cache[2] = $event => ($data.pageIndex !== 1 ? $data.pageIndex=1 : '' )),
                   style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({'background-color':$data.pageIndex !== 1 ? '#d8dde3' : '#f3f7fc'})
@@ -50340,7 +50312,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                   style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({'background-color': $data.pageIndex !== $options.numberOfPages ? '#d8dde3' : '#f3f7fc'})
                 }, "Last", 4 /* STYLE */)
               ])
-            ], 8 /* PROPS */, _hoisted_15)
+            ], 8 /* PROPS */, _hoisted_17)
           ])
         ])
       ])
