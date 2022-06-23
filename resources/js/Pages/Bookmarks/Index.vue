@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Layout from "@/Shared/Layout";
+import Layout from "@/Components/InertiaComponents/Layout";
 
 export default {
     components: {Layout},

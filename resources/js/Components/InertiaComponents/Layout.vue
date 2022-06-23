@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import Icon from '@/Shared/Icon'
+import Icon from '@/Components/InertiaComponents/Icon'
 import Dropdown from '@nathanbate/vue-dropdown-menu'
 import { Link } from '@inertiajs/inertia-vue3';
 

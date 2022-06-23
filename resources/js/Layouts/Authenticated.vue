@@ -1,10 +1,10 @@
 <script setup>
 import { ref } from 'vue';
-import BreezeApplicationLogo from '@/Components/ApplicationLogo.vue';
-import BreezeDropdown from '@/Components/Dropdown.vue';
-import BreezeDropdownLink from '@/Components/DropdownLink.vue';
-import BreezeNavLink from '@/Components/NavLink.vue';
-import BreezeResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+import BreezeApplicationLogo from '@/Components/BreezeComponents/ApplicationLogo.vue';
+import BreezeDropdown from '@/Components/BreezeComponents/Dropdown.vue';
+import BreezeDropdownLink from '@/Components/BreezeComponents/DropdownLink.vue';
+import BreezeNavLink from '@/Components/BreezeComponents/NavLink.vue';
+import BreezeResponsiveNavLink from '@/Components/BreezeComponents/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/inertia-vue3'
 import HomeIcon from '../Icons/Home'
 import NextIcon from '../Icons/Next'
@@ -94,16 +94,14 @@ const showingNavigationDropdown = ref(false);
 
 
             <!-- Page Content Wrapper -->
-            <div class=" sm:max-w-xl md:max-w-3xl lg:max-w-5xl xl:max-w-6xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <div class=" sm:max-w-xl md:max-w-3xl lg:max-w-5xl xl:max-w-6xl mx-auto py-2 px-4 sm:px-6 lg:px-8">
 
                 <div class="my-4 flex">
                     <Link href="/">
-                        <HomeIcon class="w-9 h-auto text-gray-400" />
+                        <HomeIcon class="w-6 h-auto text-gray-400" />
                     </Link>
-                    <NextIcon class="w-4 h-auto text-gray-400" />
-                    <h1 class="text-3xl uppercase font-bold pl-2">
-                        <slot name="PageTitle"></slot>
-                    </h1>
+                    <slot name="BreadCrumbs"/>
+
                 </div>
 
 

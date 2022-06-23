@@ -1,7 +1,9 @@
 <template>
     <Layout>
         <Head title="Users" />
-        <template v-slot:PageTitle>Users</template>
+        <template v-slot:BreadCrumbs>
+            <BreadCrumb>Users</BreadCrumb>
+        </template>
         <List :config-prop="vueListConfig" :data-prop="vueListData"/>
     </Layout>
 </template>
@@ -10,13 +12,15 @@
 import Layout from '@/Layouts/Authenticated.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import List from '@nathanbate/vue-list';
+import BreadCrumb from '../Components/BreadCrumb'
 
 export default {
     components: {
         Layout,
         Head,
         Link,
-        List
+        List,
+        BreadCrumb
     },
     props: {
         users: Array,

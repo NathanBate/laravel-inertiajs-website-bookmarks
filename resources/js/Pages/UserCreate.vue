@@ -1,40 +1,50 @@
 <template>
+
     <!--
     Good Form Design
     https://medium.com/nextux/form-design-best-practices-9525c321d759
     -->
-    <div>
+
+    <Layout>
+
+        <!-- Page Header Items -->
         <Head title="Create User" />
-        <h1 class="mb-8 text-3xl font-bold">
-            <Link class="text-indigo-400 hover:text-indigo-600" href="/users">Users</Link>
-            <span class="text-indigo-400 font-medium">/</span> Create
-        </h1>
-        <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
-            <form @submit.prevent="store">
-                <div class="flex flex-col">
-                    <label for="first_name">First Name</label>
-                    <input id="first_name" v-model="form.first_name" />
-                </div>
-                <div class="flex items-center justify-end px-8 py-4 bg-gray-50 border-t border-gray-100">
-                    <loading-button :loading="form.processing" class="btn-indigo" type="submit">Create User</loading-button>
-                </div>
-            </form>
-        </div>
-    </div>
+        <template v-slot:BreadCrumbs>
+            <BreadCrumb :href="'/users'">Users</BreadCrumb>
+            <BreadCrumb>Create User</BreadCrumb>
+        </template>
+
+        <!-- Create User Form -->
+
+        <form @submit.prevent="store">
+            <div class="flex flex-col sm:flex-row gap-0 sm:gap-6">
+
+
+            </div>
+            <div class="py-4">
+                <loading-button :loading="form.processing" class="text-white px-6 py-2" type="submit" style="background-color: #E12D39;">Create User</loading-button>
+            </div>
+
+        </form>
+
+
+    </Layout>
 </template>
 
 <script>
-import { Head, Link } from '@inertiajs/inertia-vue3'
 import Layout from '@/Layouts/Authenticated.vue';
-import LoadingButton from '@/Shared/LoadingButton'
+import { Head, Link } from '@inertiajs/inertia-vue3'
+import LoadingButton from '@/Components/InertiaComponents/LoadingButton'
+import BreadCrumb from '@/Components/BreadCrumb';
 
 export default {
     components: {
+        Layout,
+        BreadCrumb,
         Head,
         Link,
         LoadingButton,
     },
-    layout: Layout,
     data() {
         return {
             form: {
