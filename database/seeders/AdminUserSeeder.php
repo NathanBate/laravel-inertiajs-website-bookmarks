@@ -20,8 +20,11 @@ class AdminUserSeeder extends Seeder
             'last_name' => getenv('DEFAULT_ADMIN_USER_LAST_NAME'),
             'email' => getenv('DEFAULT_ADMIN_EMAIL'),
             'password' => Hash::make(getenv('DEFAULT_ADMIN_PASSWORD')),
+            'created_at' => now(),
+            'updated_at' => now(),
             'email_verified_at' => now(),
-            'role' => 'super'
+            'role' => 'Super',
+            'active' => 'Y'
         ]);
     }
 }

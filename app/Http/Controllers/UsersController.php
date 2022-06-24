@@ -12,16 +12,45 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserCreated;
 
 class UsersController extends Controller
 {
 
     public function index()
     {
-        return Inertia::render('Users', [
-            'users' => User::all()->except("password")->reject(function ($user) {
-                return $user->role == 'super';
+
+        /*
+        dd(User::all()
+            ->except("password")
+            ->reject(function ($user) {
+                return $user->role == 'Super';
             })
+            ->transform(fn ($user) => [
+                'id' => $user->id,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
+                'email' => $user->email,
+                'role' => $user->role,
+                'edit_link' => "/user/edit/" . $user->id
+            ])
+        );
+*/
+
+        $users = User::where('role', '!=', 'Super')->get();
+
+        return Inertia::render('Users', [
+            'user_list' => $users
+                ->except("password")
+                ->transform(fn ($user) => [
+                    'id' => $user->id,
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'email' => $user->email,
+                    'role' => $user->role,
+                    'link' => "/user/edit/" . $user->id
+                ])
         ]);
     }
 
@@ -45,10 +74,13 @@ class UsersController extends Controller
         ]);
 
         $user = User::create([
-            'name' => Request::get('name'),
+            'first_name' => Request::get('first_name'),
+            'last_name' => Request::get('last_name'),
             'email' => Request::get('email'),
-            'password' => Hash::make(Request::get('password')),
+            'password' => null,
         ]);
+
+        Mail::to(Request::get('email'))->send(new UserCreated());
 
         return Redirect::route('users.list')->with('success', 'User created.');
     }
@@ -68,14 +100,15 @@ class UsersController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function edit(User $user)
     {
         return Inertia::render('UserEdit', [
             'user' => [
                 'id' => $user->id,
-                'name' => $user->name,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
                 'email' => $user->email,
             ],
         ]);

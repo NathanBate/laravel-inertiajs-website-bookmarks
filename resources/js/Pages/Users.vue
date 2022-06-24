@@ -6,7 +6,7 @@
                 <BreadCrumb>Users</BreadCrumb>
             </BreadCrumbs>
         </template>
-        <List :config-prop="vueListConfig" :data-prop="vueListData"/>
+        <List v-if="user_list" :config-prop="vueListConfig" :data-prop="user_list"/>
     </Layout>
 </template>
 
@@ -27,7 +27,7 @@ export default {
         BreadCrumbs,
     },
     props: {
-        users: Array,
+        user_list: Array,
     },
     data() {
         return {
@@ -59,16 +59,27 @@ export default {
                         key: "email",
                         search: true
                     },
+	                {
+										label: "Role",
+		                link: true,
+		                key: 'role',
+	                }
                 ]
             },
-            vueListData: []
+	        vueListData: [],
         }
     },
-    created() {
-      if (this.users !== undefined) {
-          this.vueListData = this.users
-      }
-    },
+	created() {
+			console.log("type of data the prop is")
+		console.log(typeof (this.user_list))
+		console.log(JSON.stringify(this.user_list))
+		let test = Object.entries(this.user_list)
+		console.log("after conversion object.entries()")
+		console.log(typeof (test))
+		console.log(test)
+
+	}
+
 }
 
 </script>

@@ -55,7 +55,7 @@
                 />
                 <div class="w-1/2"/>
             </div>
-            <div class="flex justify-center items-center gap-4 bg-gray-50 shadow-lg p-4 my-4">
+            <div class="flex items-center gap-4 bg-gray-50 shadow-lg p-4 my-4">
                 <Info class="w-10 text-gray-400"/>
                 <p>An Email will be sent to this email asking for the recipient to set
                     their password.</p>
