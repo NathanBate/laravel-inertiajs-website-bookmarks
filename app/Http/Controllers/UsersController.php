@@ -14,30 +14,13 @@ use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserCreated;
+use Illuminate\Support\Facades\Password;
 
 class UsersController extends Controller
 {
 
     public function index()
     {
-
-        /*
-        dd(User::all()
-            ->except("password")
-            ->reject(function ($user) {
-                return $user->role == 'Super';
-            })
-            ->transform(fn ($user) => [
-                'id' => $user->id,
-                'first_name' => $user->first_name,
-                'last_name' => $user->last_name,
-                'email' => $user->email,
-                'role' => $user->role,
-                'edit_link' => "/user/edit/" . $user->id
-            ])
-        );
-*/
-
         $users = User::where('role', '!=', 'Super')->get();
 
         return Inertia::render('Users', [
@@ -70,7 +53,6 @@ class UsersController extends Controller
             'first_name' => ['required', 'max:50'],
             'last_name' => ['required', 'max:50'],
             'email' => ['required', 'max:50', 'email', Rule::unique('users')],
-            'password' => ['nullable'],
         ]);
 
         $user = User::create([
@@ -78,11 +60,21 @@ class UsersController extends Controller
             'last_name' => Request::get('last_name'),
             'email' => Request::get('email'),
             'password' => null,
+            'role' => 'Admin',
+            'email_verified_at' => now(),
         ]);
 
-        Mail::to(Request::get('email'))->send(new UserCreated());
+        $status = Password::sendResetLink(
+            ['email' => Request::get('email')]
+        );
 
-        return Redirect::route('users.list')->with('success', 'User created.');
+        if ($status == Password::RESET_LINK_SENT) {
+            return Redirect::route('users.list')->with('success', 'User created.');
+        }
+
+        return Redirect::route('users.list')->with('success', 'User
+            created, but there was a problem sending the password reset email.');
+
     }
 
     /**

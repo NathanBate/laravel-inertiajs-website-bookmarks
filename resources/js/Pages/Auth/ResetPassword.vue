@@ -32,6 +32,12 @@ const submit = () => {
         <BreezeValidationErrors class="mb-4" />
 
         <form @submit.prevent="submit">
+
+            <div class="my-2">
+                The password have a minimum of 8 characters, at least one lower
+                case, one upper case, and one number.
+            </div>
+
             <div>
                 <BreezeLabel for="email" value="Email" />
                 <BreezeInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus autocomplete="username" />

@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
+use Illuminate\Validation\Rules\Password as PasswordRules;
 
 class NewPasswordController extends Controller
 {
@@ -41,7 +42,11 @@ class NewPasswordController extends Controller
         $request->validate([
             'token' => 'required',
             'email' => 'required|email',
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => [
+                'required',
+                'confirmed',
+                PasswordRules::min(8)->letters()->mixedCase()->numbers()
+            ],
         ]);
 
         // Here we will attempt to reset the user's password. If it is successful we
@@ -52,7 +57,7 @@ class NewPasswordController extends Controller
             function ($user) use ($request) {
                 $user->forceFill([
                     'password' => Hash::make($request->password),
-                    'remember_token' => Str::random(60),
+                    'active' => 'Y'
                 ])->save();
 
                 event(new PasswordReset($user));
