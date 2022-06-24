@@ -16,6 +16,7 @@ const showingNavigationDropdown = ref(false);
     <div>
         <div class="min-h-screen bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
+
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
@@ -96,12 +97,8 @@ const showingNavigationDropdown = ref(false);
             <!-- Page Content Wrapper -->
             <div class=" sm:max-w-xl md:max-w-3xl lg:max-w-5xl xl:max-w-6xl mx-auto py-2 px-4 sm:px-6 lg:px-8">
 
-                <div class="my-4 flex">
-                    <Link href="/">
-                        <HomeIcon class="w-6 h-auto text-gray-400" />
-                    </Link>
+                <div class="my-4">
                     <slot name="BreadCrumbs"/>
-
                 </div>
 
 

@@ -38,7 +38,8 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         Request::validate([
-            'name' => ['required', 'max:50'],
+            'first_name' => ['required', 'max:50'],
+            'last_name' => ['required', 'max:50'],
             'email' => ['required', 'max:50', 'email', Rule::unique('users')],
             'password' => ['nullable'],
         ]);

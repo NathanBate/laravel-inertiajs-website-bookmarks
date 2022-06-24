@@ -2,7 +2,9 @@
     <Layout>
         <Head title="Users" />
         <template v-slot:BreadCrumbs>
-            <BreadCrumb>Users</BreadCrumb>
+            <BreadCrumbs>
+                <BreadCrumb>Users</BreadCrumb>
+            </BreadCrumbs>
         </template>
         <List :config-prop="vueListConfig" :data-prop="vueListData"/>
     </Layout>
@@ -13,6 +15,7 @@ import Layout from '@/Layouts/Authenticated.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import List from '@nathanbate/vue-list';
 import BreadCrumb from '../Components/BreadCrumb'
+import BreadCrumbs from '@/Components/BreadCrumbs';
 
 export default {
     components: {
@@ -20,7 +23,8 @@ export default {
         Head,
         Link,
         List,
-        BreadCrumb
+        BreadCrumb,
+        BreadCrumbs,
     },
     props: {
         users: Array,
