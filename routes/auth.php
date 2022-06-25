@@ -41,15 +41,6 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('users', [UsersController::class, 'index'])
-        ->name('users.list');
-
-    Route::get('users/create', [UsersController::class, 'create'])
-        ->name('users.create');
-
-    Route::post('users', [UsersController::class, 'store'])
-        ->name('users.store');
-
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
         ->name('verification.notice');
 
@@ -66,7 +57,46 @@ Route::middleware('auth')->group(function () {
 
     Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
 
-    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
+    Route::get('waiting-approval', function () {
+        return Inertia::render('Auth/WaitingApproval');
+    })->name("waiting.approval");
+
+    Route::match(['post','get'],'logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+
+});
+
+Route::middleware(['auth','verified','profile.approved'])->group(function () {
+    Route::get('/', function () {
+        return Inertia::render('Dashboard');
+    })->name("dashboard");
+
+    Route::get('users', [UsersController::class, 'index'])
+        ->name('users.list');
+
+    Route::get('users/create', [UsersController::class, 'create'])
+        ->name('users.create');
+
+    Route::post('users', [UsersController::class, 'store'])
+        ->name('users.store');
+
+});
+
+Route::middleware(['auth','verified','profile.approved','admin.role'])->group(function () {
+
+    Route::get('users', [UsersController::class, 'index'])
+        ->name('users.list');
+
+    Route::get('users/create', [UsersController::class, 'create'])
+        ->name('users.create');
+
+    Route::post('users', [UsersController::class, 'store'])
+        ->name('users.store');
+
+    Route::get('user/{user}/edit', [UsersController::class, 'edit'])
+        ->name('user.edit');
+
+    Route::post('user/{user}/update', [UsersController::class, 'update'])
+        ->name('user.update');
 
 });

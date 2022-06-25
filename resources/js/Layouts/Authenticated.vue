@@ -8,6 +8,7 @@ import BreezeResponsiveNavLink from '@/Components/BreezeComponents/ResponsiveNav
 import { Link } from '@inertiajs/inertia-vue3'
 import HomeIcon from '../Icons/Home'
 import NextIcon from '../Icons/Next'
+import FlashMessages from '@/Components/InertiaComponents/FlashMessages';
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -35,6 +36,7 @@ const showingNavigationDropdown = ref(false);
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
+
                             <!-- Settings Dropdown -->
                             <div class="ml-3 relative">
                                 <BreezeDropdown align="right" width="48">
@@ -50,8 +52,9 @@ const showingNavigationDropdown = ref(false);
                                         </span>
                                     </template>
 
+                                    <!-- Settings Dropdown Options -->
                                     <template #content>
-                                        <BreezeDropdownLink href="/users">
+                                        <BreezeDropdownLink v-if="(($page.props.auth.user.role == 'Super') || ($page.props.auth.user.role == 'Admin'))" href="/users">
                                             Manage Users
                                         </BreezeDropdownLink>
                                         <BreezeDropdownLink :href="route('logout')" method="post" as="button">
@@ -101,10 +104,10 @@ const showingNavigationDropdown = ref(false);
                     <slot name="BreadCrumbs"/>
                 </div>
 
+                <slot name="flashMessages"><FlashMessages/></slot>
 
-                <main>
-                    <slot />
-                </main>
+                <slot />
+
             </div>
         </div>
     </div>

@@ -16,13 +16,14 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserCreated;
 use Illuminate\Support\Facades\Password;
+use App\Notifications\ProfileApproved;
 
 class UsersController extends Controller
 {
 
     public function index()
     {
-        $users = User::where('role', '!=', 'Super')->get();
+        $users = User::where('role', '!=', 'Super')->orderBy('created_at','desc')->get();
 
         return Inertia::render('Users', [
             'user_list' => $users
@@ -33,7 +34,7 @@ class UsersController extends Controller
                     'last_name' => $user->last_name,
                     'email' => $user->email,
                     'role' => $user->role,
-                    'link' => "/user/edit/" . $user->id
+                    'link' => "/user/" . $user->id . "/edit"
                 ])
         ]);
     }
@@ -69,10 +70,10 @@ class UsersController extends Controller
         );
 
         if ($status == Password::RESET_LINK_SENT) {
-            return Redirect::route('users.list')->with('success', 'User created.');
+            return Redirect::route('users.list')->with('success', 'User created successfully.');
         }
 
-        return Redirect::route('users.list')->with('success', 'User
+        return Redirect::route('users.list')->with('error', 'User
             created, but there was a problem sending the password reset email.');
 
     }
@@ -102,6 +103,7 @@ class UsersController extends Controller
                 'first_name' => $user->first_name,
                 'last_name' => $user->last_name,
                 'email' => $user->email,
+                'role' => $user->role,
             ],
         ]);
     }
@@ -113,9 +115,22 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(User $user)
     {
-        //
+        Request::validate([
+            'first_name' => ['required', 'max:50'],
+            'last_name' => ['required', 'max:50'],
+            'email' => ['required', 'max:50', 'email', Rule::unique('users')->ignore($user->id)],
+            'role' => ['required']
+        ]);
+        $user->update(Request::only(['first_name', 'last_name', 'email']));
+
+        if ($user->role == 'Waiting Approval') {
+            $user->update(['role' => Request::get('role')]);
+            $user->notify(new ProfileApproved());
+        }
+
+        return Redirect::back()->with('success', 'User updated.');
     }
 
     /**

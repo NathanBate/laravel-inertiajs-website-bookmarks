@@ -1,7 +1,7 @@
 <template>
   <button :disabled="loading" class="flex items-center">
-    <div v-if="loading" class="btn-spinner mr-2" />
-    <slot />
+      <div v-if="loading" class="italic">Loading</div>
+      <slot v-else />
   </button>
 </template>
 
