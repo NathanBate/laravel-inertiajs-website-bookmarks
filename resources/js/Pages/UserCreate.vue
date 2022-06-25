@@ -27,13 +27,10 @@
         <form @submit.prevent="store" class="w-full md:3/4 lg:w-2/3 mx-auto">
 
             <div class="flex items-center gap-4 bg-gray-50 shadow-lg p-8 my-4">
-                <Info class="w-36 text-gray-400"/>
-                <p class="font-light leading-loose">It is best to have a user go to the registration page instead of
-                    creating a user here because their email address will be
-                    verified. However, If you would rather use this form instead,
-                    it is assumed that you are entering the correct email address,
-                    and an email will be sent to the address entered in the form below
-                    asking for the recipient to set their password.</p>
+                <Info class="w-24 text-gray-400"/>
+                <p class="font-light leading-loose">An email will be sent to this
+                    new user for them to set their password. This will also
+                    confirm their email address.</p>
             </div>
 
             <div class="flex flex-col sm:flex-row gap-0 sm:gap-6 py-2">

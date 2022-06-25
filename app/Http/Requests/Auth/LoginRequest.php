@@ -49,7 +49,6 @@ class LoginRequest extends FormRequest
             [
                 "email" => $this->input('email'),
                 'password' => $this->input('password'),
-                'active' => 'Y'
             ],
             $this->boolean('remember')
         )) {

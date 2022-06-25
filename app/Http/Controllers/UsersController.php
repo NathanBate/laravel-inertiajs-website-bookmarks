@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Mail;
@@ -59,9 +60,8 @@ class UsersController extends Controller
             'first_name' => Request::get('first_name'),
             'last_name' => Request::get('last_name'),
             'email' => Request::get('email'),
-            'password' => null,
+            'password' => bcrypt(Str::random(20)),
             'role' => 'Admin',
-            'email_verified_at' => now(),
         ]);
 
         $status = Password::sendResetLink(

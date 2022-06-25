@@ -57,6 +57,7 @@ class NewPasswordController extends Controller
             function ($user) use ($request) {
                 $user->forceFill([
                     'password' => Hash::make($request->password),
+                    'email_verified_at' => now(),
                     'active' => 'Y'
                 ])->save();
 

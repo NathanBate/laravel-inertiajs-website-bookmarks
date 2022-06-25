@@ -16,7 +16,9 @@ import { Link } from '@inertiajs/inertia-vue3';
         </div>
 
         <div class="my-8 text-gray-500 underline">
-            <Link href="/register">Request a Login</Link>
+            <slot name="requestLogin">
+                <Link href="/register">Request a Login</Link>
+            </slot>
         </div>
     </div>
 </template>

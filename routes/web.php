@@ -21,7 +21,6 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::get('/', function () {
     return Inertia::render('Dashboard');
-})->middleware("auth")->name("dashboard");
-
+})->middleware(["auth","verified"])->name("dashboard");
 
 require __DIR__.'/auth.php';
