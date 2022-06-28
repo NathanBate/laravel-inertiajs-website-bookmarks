@@ -67,10 +67,17 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth','verified','profile.approved'])->group(function () {
+
+    /**
+     * Dashboard
+     */
     Route::get('/', function () {
         return Inertia::render('Dashboard');
     })->name("dashboard");
 
+    /**
+     * User Routes
+     */
     Route::get('users', [UsersController::class, 'index'])
         ->name('users.list');
 
@@ -79,6 +86,10 @@ Route::middleware(['auth','verified','profile.approved'])->group(function () {
 
     Route::post('users', [UsersController::class, 'store'])
         ->name('users.store');
+
+    Route::delete('users/{user}', [UsersController::class, 'destroy'])
+        ->name('users.destroy');
+
 
 });
 

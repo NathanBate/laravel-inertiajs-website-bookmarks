@@ -38,6 +38,7 @@
                     :selected="selectedOption === option.value"
                 >{{ option.label }}</option>
             </select>
+	        <div v-if="fieldInfo !== null" class="text-gray-500 italic text-base">{{ fieldInfo }}</div>
             <div v-if="error" class="text-red-500 italic text-base">{{ error }}</div>
         </div>
     </div>

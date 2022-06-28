@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -55,6 +56,7 @@ class UsersController extends Controller
             'first_name' => ['required', 'max:50'],
             'last_name' => ['required', 'max:50'],
             'email' => ['required', 'max:50', 'email', Rule::unique('users')],
+            'role' => ['required']
         ]);
 
         $user = User::create([
@@ -62,7 +64,7 @@ class UsersController extends Controller
             'last_name' => Request::get('last_name'),
             'email' => Request::get('email'),
             'password' => bcrypt(Str::random(20)),
-            'role' => 'Admin',
+            'role' => Request::get('role'),
         ]);
 
         $status = Password::sendResetLink(
@@ -133,14 +135,16 @@ class UsersController extends Controller
         return Redirect::back()->with('success', 'User updated.');
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return Redirect::route('users.list')->with('success', 'User deleted.');
     }
 }
