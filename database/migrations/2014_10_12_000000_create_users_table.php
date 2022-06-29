@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('last_name', 50);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('email_to_verify')->nullable();
             $table->string('password')->nullable();
             $table->enum('role', ['Super','Admin','Editor','Subscriber','Waiting Approval'])->default('Waiting Approval');
             $table->enum('active', ['Y', 'N'])->default('N');

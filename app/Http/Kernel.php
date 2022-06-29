@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'profile.approved' => \App\Http\Middleware\RequireProfileApproval::class,
         'admin.role' => \App\Http\Middleware\RequireAdminRole::class,
+        'edit.user.profile.only' => \App\Http\Middleware\EditUserProfileOnly::class,
     ];
 }

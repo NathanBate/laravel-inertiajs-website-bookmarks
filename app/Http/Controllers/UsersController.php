@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
@@ -18,11 +20,13 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\UserCreated;
 use Illuminate\Support\Facades\Password;
 use App\Notifications\ProfileApproved;
+use App\Mail\ProfileEmailUpdate;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 class UsersController extends Controller
 {
 
-    public function index()
+    public function index(): \Inertia\Response
     {
         $users = User::where('role', '!=', 'Super')->orderBy('created_at','desc')->get();
 
@@ -43,14 +47,14 @@ class UsersController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
-    public function create()
+    public function create(): \Inertia\Response
     {
         return Inertia::render('UserCreate');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         Request::validate([
             'first_name' => ['required', 'max:50'],
@@ -84,20 +88,21 @@ class UsersController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
         //
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param User $user
      * @return \Inertia\Response
      */
-    public function edit(User $user)
+    public function edit(User $user): \Inertia\Response
     {
         return Inertia::render('UserEdit', [
             'user' => [
@@ -110,14 +115,14 @@ class UsersController extends Controller
         ]);
     }
 
+
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return RedirectResponse
      */
-    public function update(User $user)
+    public function update(User $user): RedirectResponse
     {
         Request::validate([
             'first_name' => ['required', 'max:50'],
@@ -137,14 +142,42 @@ class UsersController extends Controller
 
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param User $user
+     * @return RedirectResponse
+     */
+    public function profileUpdate(User $user): RedirectResponse
+    {
+        Request::validate([
+            'first_name' => ['required', 'max:50'],
+            'last_name' => ['required', 'max:50'],
+            'email' => ['required', 'max:50', 'email', Rule::unique('users')->ignore($user->id)],
+        ]);
+        $user->update(Request::only(['first_name', 'last_name']));
+
+        if ($user->email != Request::get('email')) {
+            $user->email_to_verify = Request::get('email');
+            $user->save();
+            Mail::to(Request::get('email'))->send(new ProfileEmailUpdate($user->getKey(), Request::get('email')));
+            return Redirect::back()->with('success', 'Profile updated. Check your email for a verification for the new address you entered.');
+        }
+
+        return Redirect::back()->with('success', 'Profile updated.');
+    }
+
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param User $user
      * @return RedirectResponse
      */
-    public function destroy(User $user)
+    public function destroy(User $user): RedirectResponse
     {
         $user->delete();
         return Redirect::route('users.list')->with('success', 'User deleted.');
     }
+
+
 }
