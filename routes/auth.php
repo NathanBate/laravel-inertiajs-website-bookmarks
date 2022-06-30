@@ -16,30 +16,49 @@ use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\UsersController;
 
+
+/**
+ * Guest Middleware
+ */
 Route::middleware('guest')->group(function () {
 
-
+    /**
+     * Login
+     */
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
+
+    /**
+     * Register
+     */
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
 
+
+    /**
+     * Forgot Password
+     */
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
         ->name('password.request');
 
     Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
         ->name('password.email');
 
+
+    /**
+     * Reset Password
+     */
     Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
         ->name('password.reset');
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->name('password.update');
+
 
     /**
      * Verify Email address for existing user
@@ -65,9 +84,12 @@ Route::middleware('guest')->group(function () {
 
     })->middleware(['signed','throttle:6,1'])->name('verification.profile.email.verify');
 
-
 });
 
+
+/**
+ * Auth Middleware
+ */
 Route::middleware('auth')->group(function () {
 
     /**
@@ -105,6 +127,10 @@ Route::middleware('auth')->group(function () {
 
 });
 
+
+/**
+ * Auth + Verified Email + Profile Approved Middleware
+ */
 Route::middleware(['auth','verified','profile.approved'])->group(function () {
 
     /**
@@ -117,6 +143,9 @@ Route::middleware(['auth','verified','profile.approved'])->group(function () {
 });
 
 
+/**
+ * Auth + Verified Email + Profile Approved + Only Current User Profile Middleware
+ */
 Route::middleware(['auth','verified','profile.approved','edit.user.profile.only'])->group(function () {
 
     Route::get('profile/{user}/edit', function (User $user) {
@@ -136,9 +165,15 @@ Route::middleware(['auth','verified','profile.approved','edit.user.profile.only'
     Route::post('profile/{user}/update', [UsersController::class, 'profileUpdate'])
         ->name('profile.update');
 
+    Route::post('profile/{user}/change-password', [UsersController::class, 'profileChangePassword'])
+        ->name('profile.change.password');
+
 });
 
 
+/**
+ * Auth + Email Verified + Profile Approved + Admin Role Middleware
+ */
 Route::middleware(['auth','verified','profile.approved','admin.role'])->group(function () {
 
     /**

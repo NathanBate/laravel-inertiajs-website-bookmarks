@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password as PasswordRules;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserCreated;
@@ -22,6 +23,7 @@ use Illuminate\Support\Facades\Password;
 use App\Notifications\ProfileApproved;
 use App\Mail\ProfileEmailUpdate;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+
 
 class UsersController extends Controller
 {
@@ -177,6 +179,22 @@ class UsersController extends Controller
     {
         $user->delete();
         return Redirect::route('users.list')->with('success', 'User deleted.');
+    }
+
+
+    public function profileChangePassword(User $user): RedirectResponse
+    {
+        Request::validate([
+            'currentPassword' => ['required','current_password'],
+            'newPassword' => [
+                'required',
+                'confirmed',
+                PasswordRules::min(8)->letters()->mixedCase()->numbers()
+            ]
+        ]);
+        $user->password = Hash::make(Request::get('newPassword'));
+        $user->save();
+        return Redirect::back()->with('success', 'Password updated.');
     }
 
 

@@ -15,7 +15,7 @@
 			<div class="w-full md:3/4 lg:w-2/3 mx-auto">
 				<BreadCrumbs>
 					<BreadCrumb :href="'/users'">Users</BreadCrumb>
-					<BreadCrumb>Update User</BreadCrumb>
+					<BreadCrumb>User Profile</BreadCrumb>
 				</BreadCrumbs>
 			</div>
 		</template>
@@ -35,14 +35,7 @@
 
 			<form @submit.prevent="store" class="w-full md:3/4 lg:w-2/3 mx-auto">
 
-				<div v-if="user.role==='Waiting Approval'" class="flex items-center gap-4 bg-red-100 shadow-lg p-8 my-4">
-					<Info class="w-12 text-gray-400"/>
-					<p class="font-light leading-loose">This user has requested a
-						login, but an administrator has not approved them yet. Change their
-						role from "Waiting Approval" to the appropriate role to approve
-						them. The user will then be notified of their approvial via
-						email.</p>
-				</div>
+                <h1 class="text-2xl font-bold uppercase mt-8 mb-4">Profile Info</h1>
 
 				<div class="flex flex-col sm:flex-row gap-0 sm:gap-6 py-2">
 					<FormField
@@ -71,7 +64,11 @@
 							field-name="email"
 							v-model:model-value="form.email"
 							:error="form.errors.email"
+                            field-info="If you change your email address, a verification email will be sent to the new address, and it
+                                and it will not be active until you verify it."
 					/>
+
+                    <div class="hidden sm:block sm:w-1/2 py-2 sm:py-0"/>
 
 				</div>
 
@@ -82,6 +79,47 @@
 				</div>
 
 			</form>
+
+            <form @submit.prevent="submitChangePassword" class="w-full md:3/4 lg:w-2/3 mx-auto mt-12 mb-6">
+
+                <h1 class="text-2xl font-bold uppercase mb-4">Change Password</h1>
+
+                <div class="flex flex-col sm:flex-row gap-0 sm:gap-6 py-2">
+                    <FormField
+                        field-type="password"
+                        class="w-full sm:w-1/2 py-2 sm:py-0"
+                        label="Current Password"
+                        field-name="currentPassword"
+                        v-model:model-value="changePasswordForm.currentPassword"
+                        :error="changePasswordForm.errors.currentPassword"
+                    />
+                    <div class="hidden sm:block sm:w-1/2 py-2 sm:py-0"/>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-0 sm:gap-6 py-2">
+                    <FormField
+                        field-type="password"
+                        class="w-full sm:w-1/2 py-2 sm:py-0"
+                        label="New Password"
+                        field-name="newPassword"
+                        v-model:model-value="changePasswordForm.newPassword"
+                        :error="changePasswordForm.errors.newPassword"
+                    />
+                    <FormField
+                        field-type="password"
+                        class="w-full sm:w-1/2 py-2 sm:py-0"
+                        label="Confirm New Password"
+                        field-name="confirmNewPassword"
+                        v-model:model-value="changePasswordForm.newPassword_confirmation"
+                        :error="changePasswordForm.errors.newPassword_confirmation"
+                    />
+                </div>
+
+                <div class="py-4">
+                    <loading-button :loading="changePasswordForm.processing" class="text-white px-6 py-2" type="submit"
+                                    style="background-color: #E12D39;">Change Password
+                    </loading-button>
+                </div>
+            </form>
 		</template>
 	</Layout>
 </template>
@@ -119,12 +157,26 @@ export default {
 				email: this.user.email,
 				role: this.user.role
 			}),
+            changePasswordForm: this.$inertia.form({
+                currentPassword: '',
+                newPassword: '',
+                newPassword_confirmation: '',
+            }),
 		}
 	},
 	methods: {
 		store() {
 			this.form.post('/profile/' + this.user.id + '/update')
 		},
+        submitChangePassword() {
+            this.changePasswordForm.post('/profile/' + this.user.id + '/change-password', {
+                onSuccess: () => {
+                    this.changePasswordForm.currentPassword = ''
+                    this.changePasswordForm.newPassword = ''
+                    this.changePasswordForm.newPassword_confirmation = ''
+                }
+            })
+        },
 	},
 	created() {
 
