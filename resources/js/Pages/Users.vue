@@ -34,7 +34,8 @@ export default {
             vueListConfig : {
                 showList: true,
                 itemsPerPage: 10,
-                rowLinkable: true,
+                rowLinkable: false,
+                searchBar: true,
                 inertiaLinks: true,
                 actionButton: {
                     label: 'New User',
@@ -60,7 +61,7 @@ export default {
                         search: true
                     },
 	                {
-										label: "Role",
+                        label: "Role",
 		                link: true,
 		                key: 'role',
 	                }
@@ -69,16 +70,6 @@ export default {
 	        vueListData: [],
         }
     },
-	created() {
-			console.log("type of data the prop is")
-		console.log(typeof (this.user_list))
-		console.log(JSON.stringify(this.user_list))
-		let test = Object.entries(this.user_list)
-		console.log("after conversion object.entries()")
-		console.log(typeof (test))
-		console.log(test)
-
-	}
 
 }
 

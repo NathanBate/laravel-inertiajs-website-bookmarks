@@ -50,9 +50,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
     showList: true,
+    showHeading: true,
     itemsPerPage: 10,
     rowLinkable: true,
     inertiaLinks: false,
+    rowLinkTarget: "_blank",
     actionButton: {
         label: 'New',
         link: 'https://inertiajs.com'
@@ -60,7 +62,6 @@ __webpack_require__.r(__webpack_exports__);
     columns: [
         {
             label: "Name",
-            link: true,
             key: "name",
             search: true,
         },
@@ -71,7 +72,6 @@ __webpack_require__.r(__webpack_exports__);
         },
         {
             label: "Random Number",
-            link: true,
             key: "randomNumber",
             search: true,
         }
@@ -21265,8 +21265,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _nathanbate_vue_list__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @nathanbate/vue-list */ "./node_modules/@nathanbate/vue-list/src/App.vue");
 /* harmony import */ var _Components_BreadCrumb__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Components/BreadCrumb */ "./resources/js/Components/BreadCrumb.vue");
 /* harmony import */ var _Components_BreadCrumbs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Components/BreadCrumbs */ "./resources/js/Components/BreadCrumbs.vue");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
 
 
 
@@ -21289,7 +21287,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       vueListConfig: {
         showList: true,
         itemsPerPage: 10,
-        rowLinkable: true,
+        rowLinkable: false,
+        searchBar: true,
         inertiaLinks: true,
         actionButton: {
           label: 'New User',
@@ -21318,15 +21317,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       },
       vueListData: []
     };
-  },
-  created: function created() {
-    console.log("type of data the prop is");
-    console.log(_typeof(this.user_list));
-    console.log(JSON.stringify(this.user_list));
-    var test = Object.entries(this.user_list);
-    console.log("after conversion object.entries()");
-    console.log(_typeof(test));
-    console.log(test);
   }
 });
 
@@ -48821,7 +48811,21 @@ __webpack_require__.r(__webpack_exports__);
       } // if this.searchPhrase.length
     }, // filteredItems
     numberOfPages() {
-      return Math.ceil(this.data.length / this.config.itemsPerPage)
+      if (this.config.itemsPerPage == 0) {
+        return 1
+      } else {
+        return Math.ceil(this.data.length / this.config.itemsPerPage)
+      }
+    },
+    listShowing() {
+      if (this.config.showList === true) {
+        return true
+      }
+      if ((this.config.showList === false) && (this.searchPhrase.length > 3)) {
+        return true
+      } else {
+        return false
+      }
     },
     usingInertiaLinks() {
       return this.inertiaLinks
@@ -48880,6 +48884,22 @@ __webpack_require__.r(__webpack_exports__);
         this.inertiaLinks = this.config.inertiaLinks
       }
 
+      if (! this.config.hasOwnProperty("showHeading")) {
+        this.config.showHeading = true
+      }
+
+      if (! this.config.hasOwnProperty("showList")) {
+        this.config.showList = true
+      }
+
+      if (! this.config.hasOwnProperty("searchBar")) {
+        this.config.searchBar = true
+      }
+
+      if (! this.config.hasOwnProperty("rowLinkTarget")) {
+        this.config.rowLinkTarget = ""
+      }
+
       this.config.columns.forEach((column, index, array) => {
         if (! column.hasOwnProperty("search")) {
           this.config.columns[index].search = false
@@ -48890,6 +48910,7 @@ __webpack_require__.r(__webpack_exports__);
         if (! column.hasOwnProperty("link")) {
           this.config.columns[index].link = false
         }
+
       })
     },
   },
@@ -51281,6 +51302,7 @@ __webpack_require__.r(__webpack_exports__);
 const _withScopeId = n => ((0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-58d3597e"),n=n(),(0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)(),n)
 const _hoisted_1 = { style: {"display":"flex"} }
 const _hoisted_2 = {
+  key: 0,
   class: "nbvl-search-wrapper",
   style: {"width":"100%","padding-right":"10px","position":"relative"}
 }
@@ -51308,14 +51330,27 @@ const _hoisted_9 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/(0,vue__WEBPACK
 const _hoisted_10 = [
   _hoisted_9
 ]
-const _hoisted_11 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", { class: "nbvl-search-bar-spacer" }, null, -1 /* HOISTED */))
+const _hoisted_11 = {
+  key: 1,
+  class: "nbvl-search-bar-spacer"
+}
 const _hoisted_12 = { class: "nbvl-action-button" }
-const _hoisted_13 = { class: "nbvl-table" }
-const _hoisted_14 = { style: {"padding":"14px","display":"inline-block","width":"100%","color":"black"} }
-const _hoisted_15 = { key: 1 }
-const _hoisted_16 = { class: "nbvl-table-footer" }
-const _hoisted_17 = ["colspan"]
-const _hoisted_18 = { class: "nathanbate-list-pagination-buttons" }
+const _hoisted_13 = {
+  key: 0,
+  class: "nbvl-table"
+}
+const _hoisted_14 = { key: 0 }
+const _hoisted_15 = { style: {"padding":"14px","display":"inline-block","width":"100%","color":"black"} }
+const _hoisted_16 = {
+  key: 1,
+  style: {"padding":"14px","display":"inline-block","width":"100%","color":"black"}
+}
+const _hoisted_17 = {
+  key: 0,
+  class: "nbvl-table-footer"
+}
+const _hoisted_18 = ["colspan"]
+const _hoisted_19 = { class: "nathanbate-list-pagination-buttons" }
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_Link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Link")
@@ -51328,36 +51363,40 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" search box, clear search, and action button "),
       (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [
         (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" search box "),
-        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [
-          (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-            id: "nbSearchBox",
-            class: "nbvl-search-box",
-            placeholder: $data.isMac === true ? 'Search ⌘ + k' : 'Search CTRL + k',
-            type: "text",
-            "onUpdate:modelValue": _cache[0] || (_cache[0] = $event => (($data.searchPhrase) = $event))
-          }, null, 8 /* PROPS */, _hoisted_3), [
-            [vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.searchPhrase]
-          ]),
-          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [
-            ($data.searchPhrase.length > 0 && $data.isMobile === false)
-              ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, _hoisted_7))
-              : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true),
-            ($data.searchPhrase.length > 0)
-              ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
-                  key: 1,
-                  onClick: _cache[1] || (_cache[1] = (...args) => ($options.clearSearch && $options.clearSearch(...args)))
-                }, [
-                  ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_8, _hoisted_10))
-                ]))
-              : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)
-          ])
-        ]),
+        ($data.config.searchBar)
+          ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+                id: "nbSearchBox",
+                class: "nbvl-search-box",
+                placeholder: $data.isMac === true ? 'Search ⌘ + k' : 'Search CTRL + k',
+                type: "text",
+                "onUpdate:modelValue": _cache[0] || (_cache[0] = $event => (($data.searchPhrase) = $event))
+              }, null, 8 /* PROPS */, _hoisted_3), [
+                [vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.searchPhrase]
+              ]),
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [
+                ($data.searchPhrase.length > 0 && $data.isMobile === false)
+                  ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, _hoisted_7))
+                  : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true),
+                ($data.searchPhrase.length > 0)
+                  ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
+                      key: 1,
+                      onClick: _cache[1] || (_cache[1] = (...args) => ($options.clearSearch && $options.clearSearch(...args)))
+                    }, [
+                      ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_8, _hoisted_10))
+                    ]))
+                  : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)
+              ])
+            ]))
+          : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true),
         (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" spacer "),
-        _hoisted_11,
+        ($data.config.searchBar || $data.config.hasOwnProperty('actionbutton'))
+          ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11))
+          : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true),
         (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" action button "),
         ($data.config.hasOwnProperty('actionButton'))
           ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Link, {
-              key: 0,
+              key: 2,
               href: $data.config.actionButton.link,
               "inertia-links": $data.inertiaLinks
             }, {
@@ -51371,77 +51410,86 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)
       ]),
       (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" END: search box, clear search, and action button "),
-      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" table "),
-      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_13, [
-        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Table Heading "),
-        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [
-          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [
-            ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.config.columns, (column, index) => {
-              return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", {
-                class: "nbvl-table-heading",
-                key: 'header-'+index,
-                style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({'width':column.width})
-              }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(column.label), 5 /* TEXT, STYLE */))
-            }), 128 /* KEYED_FRAGMENT */))
-          ])
-        ]),
-        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [
-          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Table Rows "),
-          ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.filteredItems, (item, rowIndex) => {
-            return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
-              class: "nbvl-table-rows",
-              key: 'listItem-'+rowIndex
-            }, [
-              ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.config.columns, (column, columnIndex) => {
-                return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("td", {
-                  key: 'header-'+columnIndex
-                }, [
-                  ($data.config.rowLinkable)
-                    ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Link, {
-                        key: 0,
-                        class: "nbvl-table-cell-link",
-                        href: item.link,
-                        target: $data.config.hasOwnProperty('rowLinkTarget') ? $data.config.rowLinkTarget : '',
-                        "inertia-links": $data.inertiaLinks
-                      }, {
-                        default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(() => [
-                          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item[ $data.config.columns[columnIndex].key ]), 1 /* TEXT */)
-                        ]),
-                        _: 2 /* DYNAMIC */
-                      }, 1032 /* PROPS, DYNAMIC_SLOTS */, ["href", "target", "inertia-links"]))
-                    : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item[ $data.config.columns[columnIndex].key ]), 1 /* TEXT */))
+      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Results Table "),
+      ($options.listShowing)
+        ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("table", _hoisted_13, [
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Table Heading "),
+            ($data.config.showHeading)
+              ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("thead", _hoisted_14, [
+                  (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [
+                    ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.config.columns, (column, index) => {
+                      return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", {
+                        class: "nbvl-table-heading",
+                        key: 'header-'+index,
+                        style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({'width':column.width})
+                      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(column.label), 5 /* TEXT, STYLE */))
+                    }), 128 /* KEYED_FRAGMENT */))
+                  ])
                 ]))
-              }), 128 /* KEYED_FRAGMENT */))
-            ]))
-          }), 128 /* KEYED_FRAGMENT */)),
-          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Table Footer "),
-          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", _hoisted_16, [
-            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
-              colspan: $data.config.columns.length
-            }, [
-              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [
-                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-                  onClick: _cache[2] || (_cache[2] = $event => ($data.pageIndex !== 1 ? $data.pageIndex=1 : '' )),
-                  style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({'background-color':$data.pageIndex !== 1 ? '#d8dde3' : '#f3f7fc'})
-                }, "First", 4 /* STYLE */),
-                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-                  onClick: _cache[3] || (_cache[3] = $event => ($data.pageIndex !== 1 ? $data.pageIndex=$data.pageIndex-1 : '')),
-                  style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({'background-color': $data.pageIndex !== 1 ? '#d8dde3' : '#f3f7fc'})
-                }, "Prev", 4 /* STYLE */),
-                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.pageIndex), 1 /* TEXT */),
-                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-                  onClick: _cache[4] || (_cache[4] = $event => ($data.pageIndex !== $options.numberOfPages ? $data.pageIndex=$data.pageIndex+1 :'')),
-                  style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({'background-color':$data.pageIndex !== $options.numberOfPages ? '#d8dde3' : '#f3f7fc'})
-                }, "Next", 4 /* STYLE */),
-                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-                  onClick: _cache[5] || (_cache[5] = $event => ($data.pageIndex !== $options.numberOfPages ? $data.pageIndex=$options.numberOfPages :'')),
-                  style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({'background-color': $data.pageIndex !== $options.numberOfPages ? '#d8dde3' : '#f3f7fc'})
-                }, "Last", 4 /* STYLE */)
-              ])
-            ], 8 /* PROPS */, _hoisted_17)
-          ])
-        ])
-      ])
+              : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true),
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" END: Table Heading "),
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Table Rows "),
+              ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.filteredItems, (item, rowIndex) => {
+                return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
+                  class: "nbvl-table-rows",
+                  key: 'listItem-'+rowIndex
+                }, [
+                  ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.config.columns, (column, columnIndex) => {
+                    return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("td", {
+                      key: 'header-'+columnIndex
+                    }, [
+                      ($data.config.rowLinkable)
+                        ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Link, {
+                            key: 0,
+                            class: "nbvl-table-cell-link",
+                            href: item.link,
+                            target: $data.config.rowLinkTarget ? $data.config.rowLinkTarget : '',
+                            "inertia-links": $data.inertiaLinks
+                          }, {
+                            default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(() => [
+                              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item[ $data.config.columns[columnIndex].key ]), 1 /* TEXT */)
+                            ]),
+                            _: 2 /* DYNAMIC */
+                          }, 1032 /* PROPS, DYNAMIC_SLOTS */, ["href", "target", "inertia-links"]))
+                        : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item[ $data.config.columns[columnIndex].key ]), 1 /* TEXT */))
+                    ]))
+                  }), 128 /* KEYED_FRAGMENT */))
+                ]))
+              }), 128 /* KEYED_FRAGMENT */)),
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Table Footer "),
+              ($options.numberOfPages > 1)
+                ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", _hoisted_17, [
+                    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+                      colspan: $data.config.columns.length
+                    }, [
+                      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [
+                        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+                          onClick: _cache[2] || (_cache[2] = $event => ($data.pageIndex !== 1 ? $data.pageIndex=1 : '' )),
+                          style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({'background-color':$data.pageIndex !== 1 ? '#d8dde3' : '#f3f7fc'})
+                        }, "First", 4 /* STYLE */),
+                        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+                          onClick: _cache[3] || (_cache[3] = $event => ($data.pageIndex !== 1 ? $data.pageIndex=$data.pageIndex-1 : '')),
+                          style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({'background-color': $data.pageIndex !== 1 ? '#d8dde3' : '#f3f7fc'})
+                        }, "Prev", 4 /* STYLE */),
+                        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.pageIndex), 1 /* TEXT */),
+                        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+                          onClick: _cache[4] || (_cache[4] = $event => ($data.pageIndex !== $options.numberOfPages ? $data.pageIndex=$data.pageIndex+1 :'')),
+                          style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({'background-color':$data.pageIndex !== $options.numberOfPages ? '#d8dde3' : '#f3f7fc'})
+                        }, "Next", 4 /* STYLE */),
+                        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+                          onClick: _cache[5] || (_cache[5] = $event => ($data.pageIndex !== $options.numberOfPages ? $data.pageIndex=$options.numberOfPages :'')),
+                          style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({'background-color': $data.pageIndex !== $options.numberOfPages ? '#d8dde3' : '#f3f7fc'})
+                        }, "Last", 4 /* STYLE */)
+                      ])
+                    ], 8 /* PROPS */, _hoisted_18)
+                  ]))
+                : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true),
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" END: Table Footer ")
+            ])
+          ]))
+        : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true),
+      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" END: Results Table ")
     ], 2 /* CLASS */)
   ], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */))
 }
