@@ -137,7 +137,11 @@ Route::middleware(['auth','verified','profile.approved'])->group(function () {
      * Dashboard
      */
     Route::get('/', function () {
-        return Inertia::render('Dashboard');
+        return Inertia::render('Dashboard',[
+            'waitingApproval' =>
+                ((Auth::user()->role == 'Super') || (Auth::user()->role) == 'Admin')
+                ? User::where('role','Waiting Approval')->get() : [],
+        ]);
     })->name("dashboard");
 
 });
