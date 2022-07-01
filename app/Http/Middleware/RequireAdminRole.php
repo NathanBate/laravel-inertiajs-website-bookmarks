@@ -3,21 +3,24 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\User;
 
 class RequireAdminRole
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     * @return Response|RedirectResponse
      */
     public function handle(Request $request, Closure $next)
     {
-        if (($request->user()->toArray()['role'] == "Subscriber") || ($request->user()->toArray()['role'] == "Editor")) {
+        if (! User::userIsAdminOrSuper($request->user())) {
             return $request->expectsJson()
                 ? abort(403, 'You do not have admin access.')
                 : Redirect::route('logout');

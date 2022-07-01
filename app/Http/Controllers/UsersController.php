@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Password;
 use App\Notifications\ProfileApproved;
 use App\Mail\ProfileEmailUpdate;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use phpDocumentor\Reflection\Types\Boolean;
 
 
 class UsersController extends Controller
@@ -30,7 +31,9 @@ class UsersController extends Controller
 
     public function index(): \Inertia\Response
     {
-        $users = User::where('role', '!=', 'Super')->orderBy('created_at','desc')->get();
+        $users = User::where('role', '!=', 'Super')
+            ->where('id', '!=', Auth::id())
+            ->orderBy('created_at','desc')->get();
 
         return Inertia::render('Users', [
             'user_list' => $users
@@ -134,12 +137,66 @@ class UsersController extends Controller
         ]);
         $user->update(Request::only(['first_name', 'last_name', 'email']));
 
-        if ($user->role == 'Waiting Approval') {
+        if (User::userIsUnapproved($user->role)) {
             $user->update(['role' => Request::get('role')]);
-            $user->notify(new ProfileApproved());
+
+            /**
+             * Only send the user an email if they have been approved
+             */
+            if (User::userIsApproved(Request::get('role'))) {
+                $user->notify(new ProfileApproved());
+            }
+
+            /**
+             * Check to see if there are more users to approve. If there are, then
+             * route to the next user to be approved.
+             */
+            $waitingApprovalUsers = User::where('role', 'Waiting Approval')->get();
+            if ($waitingApprovalUsers->count() > 0) {
+                return redirect('user/' . $waitingApprovalUsers[0]->id . '/edit')
+                        ->with('success','User Approved. Here is the next one.');
+            } else {
+                return redirect()->route('users.list')->with('success', "All pending users have been processed.");
+            }
+        } else {
+            $user->update(['role' => Request::get('role')]);
         }
 
         return Redirect::back()->with('success', 'User updated.');
+    }
+
+
+    public function profileEdit(User $user)
+    {
+        return Inertia::render('UserProfile', [
+            'user' => [
+                'id' => $user->id,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
+                'email' => $user->email,
+                'role' => $user->role,
+                'profile' => true,
+            ],
+        ]);
+    }
+
+
+    public function profileVerifyEmail(User $user, $hash)
+    {
+        if (hash_equals($hash,
+            sha1($user->email_to_verify))) {
+            $user->email = $user->email_to_verify;
+            $user->email_verified_at = now();
+            $user->email_to_verify = null;
+            $user->save();
+            return Inertia::render('UserProfileEmailVerified', [
+                'message' => "Thanks for signing up and verifying your email! You may close this tab."
+            ]);
+        } else {
+            return Inertia::render('UserProfileEmailVerified', [
+                'message' => "There was a problem and your email was not verified. Your original email is still in affect."
+            ]);
+        }
     }
 
 
@@ -196,6 +253,18 @@ class UsersController extends Controller
         $user->save();
         return Redirect::back()->with('success', 'Password updated.');
     }
+
+    public function sendPasswordResetEmail(User $user): RedirectResponse
+    {
+        $status = Password::sendResetLink(
+            ['email' => $user->email]
+        );
+        if ($status == Password::RESET_LINK_SENT) {
+            return Redirect::back()->with('success', 'Password reset email sent successfully.');
+        }
+        return Redirect::back()->with('error', 'There was a problem sending the password reset email.');
+    }
+
 
 
 }

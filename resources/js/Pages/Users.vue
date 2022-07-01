@@ -34,7 +34,7 @@ export default {
             vueListConfig : {
                 showList: true,
                 itemsPerPage: 10,
-                rowLinkable: false,
+                rowLinkable: true,
                 searchBar: true,
                 inertiaLinks: true,
                 actionButton: {

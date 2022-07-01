@@ -2,27 +2,24 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\User;
 use Closure;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Route;
 
-class EditUserProfileOnly
+class NoTouchSuper
 {
     /**
      * Handle an incoming request.
      *
-     * @param Request $request
-     * @param Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @param User $user
-     * @return Response|RedirectResponse
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->user()->id != $request->user->id) {
+
+        if ((User::userIsAdminOnly($request->user())) && (User::userIsSuper($request->user))) {
             return $request->expectsJson()
                 ? abort(403, 'You do not have access to this profile')
                 : Redirect::route('logout');

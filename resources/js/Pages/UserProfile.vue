@@ -14,7 +14,6 @@
 		<template #BreadCrumbs>
 			<div class="w-full md:3/4 lg:w-2/3 mx-auto">
 				<BreadCrumbs>
-					<BreadCrumb :href="'/users'">Users</BreadCrumb>
 					<BreadCrumb>User Profile</BreadCrumb>
 				</BreadCrumbs>
 			</div>

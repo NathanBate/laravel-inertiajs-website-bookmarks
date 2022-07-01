@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('email_to_verify')->nullable();
             $table->string('password')->nullable();
-            $table->enum('role', ['Super','Admin','Editor','Subscriber','Waiting Approval'])->default('Waiting Approval');
+            $table->enum('role', ['Super','Admin','Editor','Subscriber','Waiting Approval','Denied Approval','Disabled'])->default('Waiting Approval');
             $table->enum('active', ['Y', 'N'])->default('N');
             $table->rememberToken();
             $table->timestamps();

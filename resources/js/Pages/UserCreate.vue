@@ -22,6 +22,12 @@
 			</div>
 		</template>
 
+        <template #flashMessages>
+            <div class="w-full md:3/4 lg:w-2/3 mx-auto">
+                <FlashMessages/>
+            </div>
+        </template>
+
 		<!-- Create User Form -->
 
 		<form @submit.prevent="store" class="w-full md:3/4 lg:w-2/3 mx-auto">
@@ -92,6 +98,7 @@ import BreadCrumbs from '@/Components/BreadCrumbs';
 import BreadCrumb from '@/Components/BreadCrumb';
 import FormField from '@/Components/FormField';
 import Info from '../Icons/Info'
+import FlashMessages from '@/Components/InertiaComponents/FlashMessages';
 
 export default {
 	components: {
@@ -103,6 +110,7 @@ export default {
 		LoadingButton,
 		FormField,
 		Info,
+        FlashMessages
 	},
 	data() {
 		return {
@@ -114,9 +122,11 @@ export default {
 				role: ''
 			}),
 			roleOptions: [
-				{label: "", value: ""},
-				{label: "Editor", value: "Editor"},
-				{label: "Admin", value: "Admin"}
+                {label: "", value: ""},
+                {label: "Disabled", value: "Disabled"},
+                {label: "Denied Approval", value: "Denied Approval"},
+                {label: "Editor", value: "Editor"},
+                {label: "Admin", value: "Admin"}
 			],
 		}
 	},

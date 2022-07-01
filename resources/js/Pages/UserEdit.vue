@@ -35,6 +35,8 @@
 
 			<form @submit.prevent="store" class="w-full md:3/4 lg:w-2/3 mx-auto">
 
+                <h1 class="text-2xl font-bold uppercase mt-8 mb-4">Profile Info</h1>
+
 				<div v-if="user.role==='Waiting Approval'" class="flex items-center gap-4 bg-red-100 shadow-lg p-8 my-4">
 					<Info class="w-12 text-gray-400"/>
 					<p class="font-light leading-loose">This user has requested a
@@ -94,10 +96,18 @@
 					</loading-button>
 				</div>
 
+                <div class="mt-12 mb-10">
+                    <h1 class="text-2xl font-bold uppercase mb-4">Change Password</h1>
+                    <Link
+                        class="text-white py-2 text-red-600"
+                        :href="'/user/' + user.id + '/send-password-reset-email'"
+                    >
+                        Send Password Reset Email</Link>
+                </div>
+
 				<div class="my-6 text-left sm:text-right text-red-600 italic cursor-pointer">
 					<a @click="destroy">Delete User</a>
 				</div>
-
 			</form>
 		</template>
 	</Layout>
@@ -138,23 +148,35 @@ export default {
 			}),
 			roleOptions: [
 				{label: "", value: ""},
-				{label: "Editor", value: "Editor"},
+                {label: "Disabled", value: "Disabled"},
+                {label: "Denied Approval", value: "Denied Approval"},
+                {label: "Editor", value: "Editor"},
 				{label: "Admin", value: "Admin"}
 			],
 		}
 	},
 	methods: {
 		store() {
-			this.form.post('/user/' + this.user.id + '/update')
+			this.form.post('/user/' + this.user.id + '/update', {
+                onSuccess: () => {
+                    this.form.first_name = this.user.first_name
+                    this.form.last_name = this.user.last_name
+                    this.form.email = this.user.email
+                    this.form.role = this.user.role
+                }
+            })
 		},
 		destroy() {
-			if (confirm('Are you sure you want to delete this user?')) {
+			if (confirm('Are you sure you want to delete this user? You could set their role to "Disabled" instead.')) {
 				this.$inertia.delete(`/users/${this.user.id}`)
 			}
 		},
 	},
 	created() {
 
-	}
+	},
+    updated() {
+
+    }
 }
 </script>

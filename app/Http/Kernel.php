@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'profile.approved' => \App\Http\Middleware\RequireProfileApproval::class,
         'admin.role' => \App\Http\Middleware\RequireAdminRole::class,
         'edit.user.profile.only' => \App\Http\Middleware\EditUserProfileOnly::class,
+        'no.touch.super' => \App\Http\Middleware\NoTouchSuper::class,
     ];
 }
